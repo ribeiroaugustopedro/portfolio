@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sobre - Pedro Augusto Ribeiro</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="top-controls">
+      <select
+        id="language-switcher"
+        class="language-select"
+        aria-label="Selecionar idioma"
+      >
+        <option value="pt-br" selected>Idioma | pt-br</option>
+        <option value="en-us">Language | en-us</option>
+      </select>
+      <button class="theme-toggle" id="toggle-theme">Tema | Escuro</button>
+    </div>
+
+    <header>
+      <h1>Pedro Augusto Ribeiro</h1>
+      <h2>https://ribeiroaugustopedro.github.io/portfolio</h2>
+      <nav>
+        <a href="index.html">Página inicial</a>
+        <a href="about.html">Sobre</a>
+        <a href="projects.html">Projetos</a>
+        <a href="playground.html">Playground</a>
+        <a href="contact.html">Contato</a>
+      </nav>
+    </header>
+
+    <main class="home-section">
+      <h2>Sobre</h2>
+
+      <p class="intro-text">
+        Profissional de dados com vivência prática nas frentes de Análise,
+        Engenharia e Ciência de Dados. Minha atuação combina pensamento técnico,
+        visão de produto e comunicação clara — traduzindo dados em decisões.
+      </p>
+
+      <ul class="skills-list">
+        <li>
+          <strong>Python:</strong> análise de dados, automações, machine
+          learning e engenharia de dados
+        </li>
+        <li>
+          <strong>SQL:</strong> estruturação de bases, modelagem, extrações
+          otimizadas e integrações com BI
+        </li>
+        <li>
+          <strong>Power BI & Excel:</strong> dashboards interativos,
+          storytelling visual e análise de KPIs
+        </li>
+        <li>
+          <strong>Streamlit:</strong> aplicações intuitivas para explorar dados
+          de forma dinâmica
+        </li>
+      </ul>
+
+      <p class="intro-text">
+        Acredito que dados bem utilizados aceleram decisões, economizam recursos
+        e geram vantagem competitiva.
+      </p>
+
+      <div class="skills-panel">
+        <h3>Nível de Proficiência Técnica</h3>
+        <div class="placeholder-box">
+          [ Gráfico de habilidades em desenvolvimento — aqui será exibido um
+          painel com seus níveis de domínio por ferramenta. ]
+        </div>
+      </div>
+
+      <p class="tagline">
+        Estratégia orientada por dados — com simplicidade, agilidade e visão de
+        produto.
+      </p>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 | Pedro Augusto Ribeiro</p>
+    </footer>
+
+    <script>
+      const toggleBtn = document.getElementById("toggle-theme");
+      const languageSwitcher = document.getElementById("language-switcher");
+
+      const currentTheme = localStorage.getItem("theme");
+      if (currentTheme === "light") {
+        document.body.classList.add("light");
+        toggleBtn.textContent = "Tema | Claro";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        const newTheme = document.body.classList.contains("light")
+          ? "light"
+          : "dark";
+        localStorage.setItem("theme", newTheme);
+        toggleBtn.textContent =
+          newTheme === "light" ? "Tema | Claro" : "Tema | Escuro";
+      });
+
+      languageSwitcher.addEventListener("change", (e) => {
+        const lang = e.target.value;
+        window.location.href = `about.html?lang=${lang}`;
+      });
+    </script>
+  </body>
+</html>

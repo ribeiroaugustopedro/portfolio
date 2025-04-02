@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Playground - Pedro Augusto Ribeiro</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.24.1/full/pyodide.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/sql-wasm.js"></script>
+  </head>
+  <body>
+    <div class="top-controls">
+      <select
+        id="language-switcher"
+        class="language-select"
+        aria-label="Selecionar idioma"
+      >
+        <option value="pt-br" selected>Idioma | pt-br</option>
+        <option value="en-us">Language | en-us</option>
+      </select>
+      <button class="theme-toggle" id="toggle-theme">Tema | Escuro</button>
+    </div>
+
+    <header>
+      <h1>Pedro Augusto Ribeiro</h1>
+      <h2>https://ribeiroaugustopedro.github.io/portfolio</h2>
+      <nav>
+        <a href="index.html">Página inicial</a>
+        <a href="about.html">Sobre</a>
+        <a href="projects.html">Projetos</a>
+        <a href="playground.html">Playground</a>
+        <a href="contact.html">Contato</a>
+      </nav>
+    </header>
+
+    <main class="home-section">
+      <h2>Playground Interativo</h2>
+      <p class="intro-text">
+        Execute códigos Python diretamente do navegador com Pyodide ou testes
+        SQL com SQLite. Ideal para testes rápidos e interações.
+      </p>
+
+      <div class="ide-wrapper">
+        <div class="hud">
+          <select id="language-selector">
+            <option value="python" selected>Python</option>
+            <option value="sql">SQL</option>
+          </select>
+          <div>
+            <button onclick="runCode()">Executar</button>
+            <button onclick="clearOutput()">Limpar</button>
+          </div>
+        </div>
+
+        <textarea id="code-editor">print('Olá, mundo!')</textarea>
+
+        <div id="output-console">// Saída do código aparecerá aqui</div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 | Pedro Augusto Ribeiro</p>
+    </footer>
+
+    <script>
+      const toggleBtn = document.getElementById("toggle-theme");
+      const languageSwitcher = document.getElementById("language-switcher");
+      const langSelect = document.getElementById("language-selector");
+      const codeEditor = document.getElementById("code-editor");
+      const outputConsole = document.getElementById("output-console");
+
+      let pyodideReady = false;
+      let db = null;
+
+      async function main() {
+        pyodide = await loadPyodide();
+        pyodideReady = true;
+
+        const SQL = await initSqlJs({
+          locateFile: (file) =>
+            `https://cdnjs.cloudflare.com/ajax/libs/sql.js/1.6.2/${file}`,
+        });
+        db = new SQL.Database();
+      }
+      main();
+
+      const currentTheme = localStorage.getItem("theme");
+      if (currentTheme === "light") {
+        document.body.classList.add("light");
+        toggleBtn.textContent = "Tema | Claro";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        const newTheme = document.body.classList.contains("light")
+          ? "light"
+          : "dark";
+        localStorage.setItem("theme", newTheme);
+        toggleBtn.textContent =
+          newTheme === "light" ? "Tema | Claro" : "Tema | Escuro";
+      });
+
+      languageSwitcher.addEventListener("change", (e) => {
+        const lang = e.target.value;
+        window.location.href = `playground.html?lang=${lang}`;
+      });
+
+      langSelect.addEventListener("change", () => {
+        const lang = langSelect.value;
+        codeEditor.value =
+          lang === "python"
+            ? "print('Olá, mundo!')"
+            : "SELECT sqlite_version();";
+        outputConsole.textContent = "// Saída do código aparecerá aqui";
+      });
+
+      async function runCode() {
+        const lang = langSelect.value;
+        const code = codeEditor.value.trim();
+
+        if (!code) return;
+        outputConsole.textContent = "Executando...";
+
+        if (lang === "python") {
+          if (!pyodideReady) return alert("Python ainda carregando...");
+          try {
+            const result = await pyodide.runPythonAsync(code);
+            outputConsole.textContent =
+              result === undefined ? "(sem saída)" : result;
+          } catch (err) {
+            outputConsole.textContent = `Erro: ${err}`;
+          }
+        }
+
+        if (lang === "sql") {
+          try {
+            const results = db.exec(code);
+            if (results.length === 0) {
+              outputConsole.textContent = "(sem resultado)";
+            } else {
+              const table = results[0];
+              const formatted = [
+                table.columns.join(" | "),
+                ...table.values.map((row) => row.join(" | ")),
+              ].join("\n");
+              outputConsole.textContent = formatted;
+            }
+          } catch (err) {
+            outputConsole.textContent = `Erro: ${err.message}`;
+          }
+        }
+      }
+
+      function clearOutput() {
+        outputConsole.textContent = "// Saída do código aparecerá aqui";
+      }
+    </script>
+  </body>
+</html>

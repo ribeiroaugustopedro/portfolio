@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos - Pedro Augusto Ribeiro</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="top-controls">
+      <select
+        id="language-switcher"
+        class="language-select"
+        aria-label="Selecionar idioma"
+      >
+        <option value="pt-br" selected>Idioma | pt-br</option>
+        <option value="en-us">Language | en-us</option>
+      </select>
+      <button class="theme-toggle" id="toggle-theme">Tema | Escuro</button>
+    </div>
+
+    <header>
+      <h1>Pedro Augusto Ribeiro</h1>
+      <h2>https://ribeiroaugustopedro.github.io/portfolio</h2>
+      <nav>
+        <a href="index.html">Página inicial</a>
+        <a href="about.html">Sobre</a>
+        <a href="projects.html">Projetos</a>
+        <a href="playground.html">Playground</a>
+        <a href="contact.html">Contato</a>
+      </nav>
+    </header>
+
+    <main class="home-section">
+      <h2>Projetos</h2>
+
+      <p class="intro-text">
+        Esta seção reúne projetos práticos com foco em visualização, análise e
+        engenharia de dados. Aqui você encontra entregas reais desenvolvidas com
+        Python, SQL, Power BI, Excel e Streamlit.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Python</h3>
+          <p>
+            Scripts e notebooks de análise de dados, modelagem estatística e
+            automações com Pandas, Polars e Scikit-learn.
+          </p>
+          <a href="projects/python.html">Ver repositório</a>
+        </div>
+        <div class="card">
+          <h3>SQL</h3>
+          <p>
+            Consultas e pipelines otimizados para extração de métricas, análises
+            temporais e apoio a dashboards gerenciais.
+          </p>
+          <a href="projects/sql.html">Ver repositório</a>
+        </div>
+        <div class="card">
+          <h3>Power BI</h3>
+          <p>
+            Dashboards interativos com análises financeiras, operacionais e
+            clínicas. KPIs dinâmicos e DAX avançado.
+          </p>
+          <a href="projects/powerbi.html">Ver dashboards</a>
+        </div>
+        <div class="card">
+          <h3>Excel</h3>
+          <p>
+            Planilhas automatizadas com Power Query, fórmulas inteligentes e
+            visualização de metas e desempenho.
+          </p>
+          <a href="projects/excel.html">Ver planilhas</a>
+        </div>
+        <div class="card">
+          <h3>Streamlit</h3>
+          <p>
+            Aplicações web com filtros, mapas interativos, heatmaps e integração
+            com bases SQL e Python.
+          </p>
+          <a href="projects/streamlit.html">Ver app</a>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 | Pedro Augusto Ribeiro</p>
+    </footer>
+
+    <script>
+      const toggleBtn = document.getElementById("toggle-theme");
+      const languageSwitcher = document.getElementById("language-switcher");
+
+      const currentTheme = localStorage.getItem("theme");
+      if (currentTheme === "light") {
+        document.body.classList.add("light");
+        toggleBtn.textContent = "Tema | Claro";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        const newTheme = document.body.classList.contains("light")
+          ? "light"
+          : "dark";
+        localStorage.setItem("theme", newTheme);
+        toggleBtn.textContent =
+          newTheme === "light" ? "Tema | Claro" : "Tema | Escuro";
+      });
+
+      languageSwitcher.addEventListener("change", (e) => {
+        const lang = e.target.value;
+        window.location.href = `projects.html?lang=${lang}`;
+      });
+    </script>
+  </body>
+</html>

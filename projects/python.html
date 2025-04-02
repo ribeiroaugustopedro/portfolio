@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos em Python - Pedro Augusto Ribeiro</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="top-controls">
+      <select
+        id="language-switcher"
+        class="language-select"
+        aria-label="Selecionar idioma"
+      >
+        <option value="pt-br" selected>Idioma | pt-br</option>
+        <option value="en-us">Language | en-us</option>
+      </select>
+      <button class="theme-toggle" id="toggle-theme">Tema | Escuro</button>
+    </div>
+
+    <header>
+      <h1>Pedro Augusto Ribeiro</h1>
+      <h2>https://ribeiroaugustopedro.github.io/portfolio</h2>
+      <nav>
+        <a href="../index.html">Página inicial</a>
+        <a href="../about.html">Sobre</a>
+        <a href="../projects.html">Projetos</a>
+        <a href="../playground.html">Playground</a>
+        <a href="../contact.html">Contato</a>
+      </nav>
+    </header>
+
+    <main class="home-section">
+      <h2>Projetos em Python</h2>
+      <p class="intro-text">
+        Scripts e notebooks para análise de dados, automações, estatística e
+        machine learning. Ferramentas utilizadas: Pandas, Polars, Scikit-learn e
+        APIs diversas.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Análise de Vendas com Pandas</h3>
+          <p>
+            Processamento e visualização de dados de vendas com insights sobre
+            desempenho mensal e sazonalidade.
+          </p>
+          <a
+            href="https://github.com/ribeiroaugustopedro/projeto-vendas"
+            target="_blank"
+            >Ver projeto</a
+          >
+        </div>
+
+        <div class="card">
+          <h3>Web Scraping de Preços</h3>
+          <p>
+            Coleta automatizada de dados de preços em sites de e-commerce usando
+            BeautifulSoup e agendamento com cron.
+          </p>
+          <a
+            href="https://github.com/ribeiroaugustopedro/web-scraping-precos"
+            target="_blank"
+            >Ver projeto</a
+          >
+        </div>
+
+        <div class="card">
+          <h3>Classificador de E-mails</h3>
+          <p>
+            Modelo supervisionado com Scikit-learn para classificar e-mails em
+            categorias de SPAM e Não-SPAM.
+          </p>
+          <a
+            href="https://github.com/ribeiroaugustopedro/classificador-emails"
+            target="_blank"
+            >Ver projeto</a
+          >
+        </div>
+
+        <!-- Adicione novos projetos aqui -->
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 | Pedro Augusto Ribeiro</p>
+    </footer>
+
+    <script>
+      const toggleBtn = document.getElementById("toggle-theme");
+      const languageSwitcher = document.getElementById("language-switcher");
+
+      const currentTheme = localStorage.getItem("theme");
+      if (currentTheme === "light") {
+        document.body.classList.add("light");
+        toggleBtn.textContent = "Tema | Claro";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        const newTheme = document.body.classList.contains("light")
+          ? "light"
+          : "dark";
+        localStorage.setItem("theme", newTheme);
+        toggleBtn.textContent =
+          newTheme === "light" ? "Tema | Claro" : "Tema | Escuro";
+      });
+
+      languageSwitcher.addEventListener("change", (e) => {
+        const lang = e.target.value;
+        window.location.href = `python.html?lang=${lang}`;
+      });
+    </script>
+  </body>
+</html>
+F

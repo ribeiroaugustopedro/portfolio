@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contato - Pedro Augusto Ribeiro</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+  </head>
+  <body>
+    <div class="top-controls">
+      <select
+        id="language-switcher"
+        class="language-select"
+        aria-label="Selecionar idioma"
+      >
+        <option value="pt-br" selected>Idioma | pt-br</option>
+        <option value="en-us">Language | en-us</option>
+      </select>
+      <button class="theme-toggle" id="toggle-theme">Tema | Escuro</button>
+    </div>
+
+    <header>
+      <h1>Pedro Augusto Ribeiro</h1>
+      <h2>https://ribeiroaugustopedro.github.io/portfolio</h2>
+      <nav>
+        <a href="index.html">Página inicial</a>
+        <a href="about.html">Sobre</a>
+        <a href="projects.html">Projetos</a>
+        <a href="playground.html">Playground</a>
+        <a href="contact.html">Contato</a>
+      </nav>
+    </header>
+
+    <main class="home-section">
+      <h2>Contato</h2>
+      <p class="intro-text">
+        Estou aberto a colaborações, conexões e oportunidades. Abaixo, você
+        encontra os canais pelos quais pode me contatar ou acompanhar meu
+        trabalho.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <h3><i class="fas fa-envelope"></i> Email</h3>
+          <p>
+            <a
+              href="mailto:ribeiroaugustopedro@gmail.com"
+              style="color: #c9d1d9; font-weight: normal"
+            >
+              ribeiroaugustopedro@gmail.com
+            </a>
+          </p>
+        </div>
+        <div class="card">
+          <h3><i class="fab fa-linkedin"></i> LinkedIn</h3>
+          <p>
+            <a
+              href="https://www.linkedin.com/in/pedro-augusto-ribeiro/"
+              target="_blank"
+              style="color: #c9d1d9; font-weight: normal"
+            >
+              linkedin.com/in/pedro-augusto-ribeiro
+            </a>
+          </p>
+        </div>
+        <div class="card">
+          <h3><i class="fab fa-github"></i> GitHub</h3>
+          <p>
+            <a
+              href="https://github.com/ribeiroaugustopedro"
+              target="_blank"
+              style="color: #c9d1d9; font-weight: normal"
+            >
+              github.com/ribeiroaugustopedro
+            </a>
+          </p>
+        </div>
+      </div>
+
+      <p style="text-align: center; margin-top: 2rem; font-size: 1.05rem">
+        Rio de Janeiro - RJ
+      </p>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 | Pedro Augusto Ribeiro</p>
+    </footer>
+
+    <script>
+      const toggleBtn = document.getElementById("toggle-theme");
+      const languageSwitcher = document.getElementById("language-switcher");
+      const currentTheme = localStorage.getItem("theme");
+
+      if (currentTheme === "light") {
+        document.body.classList.add("light");
+        toggleBtn.textContent = "Tema | Claro";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        const newTheme = document.body.classList.contains("light")
+          ? "light"
+          : "dark";
+        localStorage.setItem("theme", newTheme);
+        toggleBtn.textContent =
+          newTheme === "light" ? "Tema | Claro" : "Tema | Escuro";
+      });
+
+      languageSwitcher.addEventListener("change", (e) => {
+        const lang = e.target.value;
+        window.location.href = `contact.html?lang=${lang}`;
+      });
+    </script>
+  </body>
+</html>

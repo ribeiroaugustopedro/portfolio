@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projetos Power BI - Pedro Augusto Ribeiro</title>
+    <link rel="stylesheet" href="../style.css" />
+  </head>
+  <body>
+    <div class="top-controls">
+      <select
+        id="language-switcher"
+        class="language-select"
+        aria-label="Selecionar idioma"
+      >
+        <option value="pt-br" selected>Idioma | pt-br</option>
+        <option value="en-us">Language | en-us</option>
+      </select>
+      <button class="theme-toggle" id="toggle-theme">Tema | Escuro</button>
+    </div>
+
+    <header>
+      <h1>Pedro Augusto Ribeiro</h1>
+      <h2>https://ribeiroaugustopedro.github.io/portfolio</h2>
+      <nav>
+        <a href="../index.html">Página inicial</a>
+        <a href="../about.html">Sobre</a>
+        <a href="../projects.html">Projetos</a>
+        <a href="../playground.html">Playground</a>
+        <a href="../contact.html">Contato</a>
+      </nav>
+    </header>
+
+    <main class="home-section">
+      <h2>Projetos em Power BI</h2>
+      <p class="intro-text">
+        Dashboards interativos para análise de desempenho, indicadores
+        financeiros, gestão hospitalar e produtividade. Cada visualização
+        utiliza recursos avançados de DAX, segmentações dinâmicas e design
+        centrado no usuário.
+      </p>
+
+      <div class="cards">
+        <div class="card">
+          <h3>Indicadores Hospitalares</h3>
+          <p>
+            Dashboard com taxa de ocupação, absenteísmo e produtividade por
+            especialidade médica.
+          </p>
+          <a href="powerbi-indicadores-hospitalares.html">Ver dashboard</a>
+        </div>
+        <!-- Adicione novos cards abaixo -->
+      </div>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 | Pedro Augusto Ribeiro</p>
+    </footer>
+
+    <script>
+      const toggleBtn = document.getElementById("toggle-theme");
+      const languageSwitcher = document.getElementById("language-switcher");
+      const currentTheme = localStorage.getItem("theme");
+
+      if (currentTheme === "light") {
+        document.body.classList.add("light");
+        toggleBtn.textContent = "Tema | Claro";
+      }
+
+      toggleBtn.addEventListener("click", () => {
+        document.body.classList.toggle("light");
+        const newTheme = document.body.classList.contains("light")
+          ? "light"
+          : "dark";
+        localStorage.setItem("theme", newTheme);
+        toggleBtn.textContent =
+          newTheme === "light" ? "Tema | Claro" : "Tema | Escuro";
+      });
+
+      languageSwitcher.addEventListener("change", (e) => {
+        const lang = e.target.value;
+        window.location.href = `powerbi.html?lang=${lang}`;
+      });
+    </script>
+  </body>
+</html>
